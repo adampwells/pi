@@ -26,9 +26,9 @@ public class PiCalculatorTest extends TestCase {
 
         PiCalculator piCalculator = new PiCalculator();
 
-        assertEquals(1.0, piCalculator.calculateNthTerm(1));
-        assertEquals(-0.3333333333333333, piCalculator.calculateNthTerm(2));
-        assertEquals(0.2, piCalculator.calculateNthTerm(3));
+        assertEquals(4 * 1/1.0, piCalculator.calculateNthTerm(1));
+        assertEquals(4 * -1 / 3.0, piCalculator.calculateNthTerm(2));
+        assertEquals(4 * 1/5.0, piCalculator.calculateNthTerm(3));
 
     }
 
@@ -55,9 +55,9 @@ public class PiCalculatorTest extends TestCase {
         assertEquals("\n" +
                 "This app calculates Pi by the infinite series:\n" +
                 "\n" +
-                "4 * Pi = 1 - 1/3 + 1/5 - 1/7 + ...\n" +
+                "Pi = 4 - 4/3 + 4/5 - 4/7 + ...\n" +
                 "\n" +
-                "Calculated Pi iteratively as 3.1315929035585537 using 100 terms in 0 milliseconds.\n" +
+                "Calculated Pi iteratively as 3.1516934060711157 using 100 terms.\n" +
                 "Compared with Math.PI        3.141592653589793\n" +
                 "\n", outContent.toString());
 
@@ -70,7 +70,7 @@ public class PiCalculatorTest extends TestCase {
         assertEquals("\n" +
                 "This app calculates Pi by the infinite series:\n" +
                 "\n" +
-                "4 * Pi = 1 - 1/3 + 1/5 - 1/7 + ...\n" +
+                "Pi = 4 - 4/3 + 4/5 - 4/7 + ...\n" +
                 "Usage: java -jar PiCalculator-0.1-SNAPSHOT.jar n\n\n" +
                 "I could not parse argument [sdfsfs] as a Java Integer\n\n", outContent.toString());
 

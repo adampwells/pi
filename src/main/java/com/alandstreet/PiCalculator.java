@@ -1,13 +1,20 @@
 package com.alandstreet;
 
 import java.util.Date;
+import java.util.stream.IntStream;
 
 /**
  * Created by awells on 4/05/2015.
  * <p/>
  * calculates Pi by the infinite series:
  * <p/>
- * 4 * Pi = 1 - 1/3 + 1/5 - 1/7 + ...
+ *
+ * 4 * Pi = 1 - 1/3 + 1/5 - 1/7 ...
+ *
+ * equivalent to:
+ *
+ * Pi = 4 - 4/3 + 4/5 - 4/7 + ...
+ *
  */
 public class PiCalculator {
 
@@ -16,7 +23,7 @@ public class PiCalculator {
     public static void main(String[] args) {
 
         System.out.println("\nThis app calculates Pi by the infinite series:");
-        System.out.println("\n4 * Pi = 1 - 1/3 + 1/5 - 1/7 + ...");
+        System.out.println("\nPi = 4 - 4/3 + 4/5 - 4/7 + ...");
 
         if (args == null || args.length == 0) {
 
@@ -30,13 +37,9 @@ public class PiCalculator {
 
                 PiCalculator piCalculator = new PiCalculator();
 
-                Date start = new Date();
-
                 Double iterativePi = piCalculator.calculateIterative(n);
 
-                Date iterativeDone = new Date();
-
-                System.out.println("\nCalculated Pi iteratively as " + iterativePi + " using " + n + " terms in " + (iterativeDone.getTime() - start.getTime()) + " milliseconds.");
+                System.out.println("\nCalculated Pi iteratively as " + iterativePi + " using " + n + " terms.");
                 System.out.println("Compared with Math.PI        " + Math.PI + "\n");
 
             } catch (Exception e) {
@@ -49,26 +52,41 @@ public class PiCalculator {
 
     }
 
+// the old way
+//    public Double calculateIterative(Integer n) {
+//
+//        Double result = 0D;
+//
+//        for (int i = 1; i <= n; i++) {
+//
+//            result += calculateNthTerm(i);
+//
+//        }
+//
+//        return 4 * result;
+//
+//    }
 
+    // the new way, using Streams, Lambdas
     public Double calculateIterative(Integer n) {
 
-        Double result = 0D;
-
-        for (int i = 1; i <= n; i++) {
-
-            result += calculateNthTerm(i);
-
-        }
-
-        return 4 * result;
+        return IntStream.range(1, n)
+                .mapToDouble(num -> calculateNthTerm(num))
+                .sum();
 
     }
 
+
+    /**
+     * calculates the n-th term of the infinite series
+     * @param n
+     * @return Double value representing the term
+     */
     public Double calculateNthTerm(Integer n) {
 
-        Double denominator = 2D * n - 1;
+        Double denominator = 2.0 * n - 1;
         Double termSign = -1 * Math.pow(-1, n);
-        return termSign * (1 / denominator);
+        return termSign * (4 / denominator);
 
     }
 
