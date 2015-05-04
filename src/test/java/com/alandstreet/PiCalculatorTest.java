@@ -2,7 +2,25 @@ package com.alandstreet;
 
 import junit.framework.TestCase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class PiCalculatorTest extends TestCase {
+
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+    @Override
+    public void setUp() {
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+    }
+
+    @Override
+    public void tearDown() {
+        System.setOut(null);
+        System.setErr(null);
+    }
 
     public void testNthTerm() {
 
@@ -29,5 +47,34 @@ public class PiCalculatorTest extends TestCase {
         assertTrue(difference < 0.0001);
 
     }
+
+    public void testMainGoodArgs(){
+
+        PiCalculator.main(new String[]{"100"});
+
+        assertEquals("\n" +
+                "This app calculates Pi by the infinite series:\n" +
+                "\n" +
+                "4 * Pi = 1 - 1/3 + 1/5 - 1/7 + ...\n" +
+                "\n" +
+                "Calculated Pi iteratively as 3.1315929035585537 using 100 terms in 0 milliseconds.\n" +
+                "Compared with Math.PI        3.141592653589793\n" +
+                "\n", outContent.toString());
+
+    }
+
+    public void testMainBadArgs(){
+
+        PiCalculator.main(new String[]{"sdfsfs"});
+
+        assertEquals("\n" +
+                "This app calculates Pi by the infinite series:\n" +
+                "\n" +
+                "4 * Pi = 1 - 1/3 + 1/5 - 1/7 + ...\n" +
+                "Usage: java -jar PiCalculator-0.1-SNAPSHOT.jar n\n\n" +
+                "I could not parse argument [sdfsfs] as a Java Integer\n\n", outContent.toString());
+
+    }
+
 
 }

@@ -28,21 +28,22 @@ public class PiCalculator {
 
                 n = Integer.valueOf(args[0]);
 
-            } catch (NumberFormatException e) {
+                PiCalculator piCalculator = new PiCalculator();
 
-                System.out.println("Usage: java -jar PiCalculator-0.1-SNAPSHOT.jar n\n\n I could not parse n as a Java Integer");
+                Date start = new Date();
+
+                Double iterativePi = piCalculator.calculateIterative(n);
+
+                Date iterativeDone = new Date();
+
+                System.out.println("\nCalculated Pi iteratively as " + iterativePi + " using " + n + " terms in " + (iterativeDone.getTime() - start.getTime()) + " milliseconds.");
+                System.out.println("Compared with Math.PI        " + Math.PI + "\n");
+
+            } catch (Exception e) {
+
+                System.out.println("Usage: java -jar PiCalculator-0.1-SNAPSHOT.jar n\n\nI could not parse argument [" + args[0] + "] as a Java Integer\n");
 
             }
-
-            PiCalculator piCalculator = new PiCalculator();
-
-            Date start = new Date();
-
-            Double iterativePi = piCalculator.calculateIterative(n);
-
-            Date iterativeDone = new Date();
-            System.out.println("\nCalculated Pi iteratively as " + iterativePi + " using " + n + " terms in " + (iterativeDone.getTime() - start.getTime()) + " milliseconds.");
-            System.out.println("Compared with Math.PI        " + Math.PI + "\n");
 
         }
 
