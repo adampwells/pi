@@ -70,11 +70,31 @@ public class PiCalculator {
     // the new way, using Streams, Lambdas
     public Double calculateIterative(Integer n) {
 
-        return IntStream.range(1, n)
+        return IntStream.range(1, n).parallel()
                 .mapToDouble(num -> calculateNthTerm(num))
                 .sum();
 
     }
+
+
+    /**
+     * Scala - tail recursion
+     *
+
+     def pi(terms:Int): Double = {
+
+        def nth(n: Int) = -1 * scala.math.pow(-1, n) * (4 / (2.0 * n - 1))
+
+        def loop(acc: Double, n: Int): Double = {
+            if (n == 0) acc
+            else loop(acc + nth(n), n-1)
+        }
+
+        loop(0, terms)
+     }
+
+     *
+     */
 
 
     /**

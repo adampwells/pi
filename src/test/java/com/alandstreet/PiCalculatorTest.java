@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Date;
 
 public class PiCalculatorTest extends TestCase {
 
@@ -36,13 +37,16 @@ public class PiCalculatorTest extends TestCase {
 
         PiCalculator piCalculator = new PiCalculator();
 
+        Date start = new Date();
         Double calculatedPi = piCalculator.calculateIterative(100000);
+        Date end = new Date();
 
         double difference = Math.abs(Math.PI - calculatedPi);
 
         System.out.println("Math.PI:    " + Math.PI);
         System.out.println("Calculated: " + calculatedPi);
         System.out.println("Difference: " + difference);
+        System.out.println("Time: " + (end.getTime() - start.getTime())/1000 + " seconds");
 
         assertTrue(difference < 0.0001);
 
